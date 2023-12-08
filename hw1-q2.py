@@ -29,6 +29,7 @@ class LogisticRegression(nn.Module):
         super().__init__()
         # In a pytorch module, the declarations of layers needs to come after
         # the super __init__ line, otherwise the magic doesn't work.
+        self.layer = nn.Linear(n_features, n_classes)
 
     def forward(self, x, **kwargs):
         """
@@ -44,7 +45,7 @@ class LogisticRegression(nn.Module):
         forward pass -- this is enough for it to figure out how to do the
         backward pass.
         """
-        raise NotImplementedError
+        return self.layer(x)
 
 
 # Q2.2
@@ -65,8 +66,25 @@ class FeedforwardNetwork(nn.Module):
         includes modules for several activation functions and dropout as well.
         """
         super().__init__()
-        # Implement me!
-        raise NotImplementedError
+
+        modules = []
+
+        units = []
+        units += [n_features]
+        units += [hidden_size for _ in range(layers)]
+        units += [n_classes]
+
+        for i in range(layers + 1):
+            modules += [nn.Linear(units[i], units[i + 1])]
+            if i < layers:
+                if activation_type == "relu":
+                    modules += [nn.ReLU()]
+                else:
+                    modules += [nn.Tanh()]
+
+                modules += [nn.Dropout(p=dropout)]
+
+        self.model = nn.Sequential(*modules)
 
     def forward(self, x, **kwargs):
         """
@@ -76,7 +94,7 @@ class FeedforwardNetwork(nn.Module):
         the output logits from x. This will include using various hidden
         layers, pointwise nonlinear functions, and dropout.
         """
-        raise NotImplementedError
+        return self.model(x)
 
 
 def train_batch(X, y, model, optimizer, criterion, **kwargs):
@@ -97,7 +115,12 @@ def train_batch(X, y, model, optimizer, criterion, **kwargs):
     This function should return the loss (tip: call loss.item()) to get the
     loss as a numerical value that is not part of the computation graph.
     """
-    raise NotImplementedError
+    optimizer.zero_grad()
+    output = model(X)
+    loss = criterion(output, y)
+    loss.backward()
+    optimizer.step()
+    return loss.item()
 
 
 def predict(model, X):
@@ -248,7 +271,7 @@ def main():
     else:
         raise ValueError(f"Unknown model {opt.model}")
     plot(epochs, losses, name=f'{opt.model}-training-loss-{config}', ylim=ylim)
-    accuracy = { "Valid Accuracy": valid_accs }
+    accuracy = {"Valid Accuracy": valid_accs}
     plot(epochs, accuracy, name=f'{opt.model}-validation-accuracy-{config}', ylim=(0., 1.))
 
 

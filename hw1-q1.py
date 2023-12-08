@@ -10,6 +10,26 @@ import matplotlib.pyplot as plt
 
 import utils
 
+def relu(z):
+    return z * (z > 0)
+
+
+def relu_d(z):
+    return 1. * (z > 0)
+
+
+def softmax(z):
+    z = z - np.max(z)
+    return np.exp(z) / np.sum(np.exp(z))
+
+
+def cross_entropy(YPred, Y):
+    return -(np.log(Y.T @ YPred + 1e-8))
+
+
+def cross_entropy_w_softmax_d(YPred, Y):
+    return YPred - Y
+
 
 class LinearModel(object):
     def __init__(self, n_classes, n_features, **kwargs):
@@ -51,27 +71,6 @@ class Perceptron(LinearModel):
         if y_hat_i != y_i:
             self.W[y_i] += x_i
             self.W[y_hat_i] -= x_i
-
-
-def relu(z):
-    return z * (z > 0)
-
-
-def relu_d(z):
-    return 1. * (z > 0)
-
-
-def softmax(z):
-    z = z - np.max(z)
-    return np.exp(z) / np.sum(np.exp(z))
-
-
-def cross_entropy(YPred, Y):
-    return -(np.log(Y.T @ YPred))
-
-
-def cross_entropy_w_softmax_d(YPred, Y):
-    return YPred - Y
 
 
 class LogisticRegression(LinearModel):

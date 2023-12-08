@@ -1,0 +1,13 @@
+1. Logistic Regression - LR 0.001 (Run 0) - Elapsed time: 93.90 seconds
+1. Logistic Regression - LR 0.01 (Run 1) - Elapsed time: 88.26 seconds
+1. Logistic Regression - LR 0.1 (Run 2) - Elapsed time: 88.16 seconds
+2.a) MLP - Batch Size 16 (Run 3) - Same as Run 6
+2.a) MLP - Batch Size 1024 (Run 4) - Elapsed time: 32.52 seconds
+2.b) MLP - Learning Rate 1 (Run 5) - Elapsed time: 146.15 seconds
+2.b) MLP - Learning Rate 0.1 (Run 6) - Elapsed time: 153.10 seconds
+2.b) MLP - Learning Rate 0.01 (Run 7) - Elapsed time: 146.69 seconds
+2.b) MLP - Learning Rate 0.001 (Run 8) - Elapsed time: 154.66 seconds
+2.c) MLP - Dropout 0.0 L2 Decay 0 (Run 9) - Elapsed time: 277.63 seconds
+2.c) MLP - Dropout 0.0 L2 Decay 0.0001 (Run 10) - Elapsed time: 272.12 seconds
+2.c) MLP - Dropout 0.2 L2 Decay 0 (Run 11) - Elapsed time: 272.56 seconds
+
