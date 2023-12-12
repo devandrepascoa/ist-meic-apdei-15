@@ -115,6 +115,7 @@ def train_batch(X, y, model, optimizer, criterion, **kwargs):
     This function should return the loss (tip: call loss.item()) to get the
     loss as a numerical value that is not part of the computation graph.
     """
+    model.train()
     optimizer.zero_grad()
     output = model(X)
     loss = criterion(output, y)

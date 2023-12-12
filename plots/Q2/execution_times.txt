@@ -11,3 +11,7 @@
 2.c) MLP - Dropout 0.0 L2 Decay 0.0001 (Run 10) - Elapsed time: 272.12 seconds
 2.c) MLP - Dropout 0.2 L2 Decay 0 (Run 11) - Elapsed time: 272.56 seconds
 
+1.a) Perceptron (Run 0) - Elapsed time: 128.19 seconds
+1.a) Perceptron (Run 0) - Elapsed time: 63.55 seconds
+1.b) Logistic Regression - Learning Rate 0.01 (Run 0) - Elapsed time: 371.74 seconds
+1.b) Logistic Regression - Learning Rate 0.001 (Run 1) - Elapsed time: 573.21 seconds
