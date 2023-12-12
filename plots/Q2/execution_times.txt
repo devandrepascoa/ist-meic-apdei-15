@@ -15,3 +15,4 @@
 1.a) Perceptron (Run 0) - Elapsed time: 63.55 seconds
 1.b) Logistic Regression - Learning Rate 0.01 (Run 0) - Elapsed time: 371.74 seconds
 1.b) Logistic Regression - Learning Rate 0.001 (Run 1) - Elapsed time: 573.21 seconds
+1.c) MLP (Run 2) - Elapsed time: 9593.73 seconds
