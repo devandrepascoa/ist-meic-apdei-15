@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 import utils
 
+
 def relu(z):
     return z * (z > 0)
 
