@@ -14,6 +14,3 @@ hw1-q2.py
 - contains skeleton code for Question 2, which covers classification with
   logistic regression and the multi-layer perceptron, with implementation in
   torch.
-
-TODO:
-- Test with last year's dataset and check accuracy.
