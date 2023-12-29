@@ -12,6 +12,7 @@ import torch.nn.functional as F
 import torchvision
 from matplotlib import pyplot as plt
 import numpy as np
+import os
 
 import utils
 
@@ -21,36 +22,50 @@ class CNN(nn.Module):
         super(CNN, self).__init__()
         self.no_maxpool = no_maxpool
         if not no_maxpool:
-            # Implementation for Q2.1
-            raise NotImplementedError
+            # Convolutional layers
+            self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=1, padding=1)
+            self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=1, padding=0)
+            
+            # Fully connected layers
+            self.fc1 = nn.Linear(16 * 6 * 6, 320)
+            self.fc2 = nn.Linear(320, 120)
+            self.fc3 = nn.Linear(120, 10)
+            
+            # Dropout layer
+            self.drop = nn.Dropout(dropout_prob)
         else:
             # Implementation for Q2.2
             raise NotImplementedError
         
         # Implementation for Q2.1 and Q2.2
-        raise NotImplementedError
         
     def forward(self, x):
         # input should be of shape [b, c, w, h]
+        x = x.view(-1, 1, 28, 28)  # For 28x28 pixel images and 1 channel (grayscale)
+
         # conv and relu layers
+        x = F.relu(self.conv1(x))
 
         # max-pool layer if using it
         if not self.no_maxpool:
-            raise NotImplementedError
+            x = F.max_pool2d(x, kernel_size=2, stride=2)
         
         # conv and relu layers
-        
+        x = F.relu(self.conv2(x))
 
         # max-pool layer if using it
         if not self.no_maxpool:
-            raise NotImplementedError
+            x = F.max_pool2d(x, kernel_size=2, stride=2)
         
         # prep for fully connected layer + relu
+        x = x.view(-1, 16 * 6 * 6)  # 16 channels, output size 6x6
+        x = F.relu(self.fc1(x))
         
         # drop out
         x = self.drop(x)
 
         # second fully connected layer + relu
+        x = F.relu(self.fc2(x))
         
         # last fully connected layer
         x = self.fc3(x)
@@ -98,12 +113,14 @@ def plot(epochs, plottable, ylabel='', name=''):
     plt.xlabel('Epoch')
     plt.ylabel(ylabel)
     plt.plot(epochs, plottable)
-    plt.savefig('%s.pdf' % (name), bbox_inches='tight')
+    folder_name = 'hw2/plots'
+    os.makedirs(folder_name, exist_ok=True)
+    file_path = os.path.join(folder_name, '%s.pdf' % (name))
+    plt.savefig(file_path, bbox_inches='tight')
 
 
 def get_number_trainable_params(model):
-    ## TO IMPLEMENT - REPLACE return 0
-    return 0
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
 
 def main():
