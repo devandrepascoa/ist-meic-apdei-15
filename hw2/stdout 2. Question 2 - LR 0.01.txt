@@ -1,0 +1,49 @@
+BS: 8
+EP: 15
+Training epoch 1
+Training loss: 1.1826
+Valid acc: 0.4783
+Training epoch 2
+Training loss: 1.1318
+Valid acc: 0.6082
+Training epoch 3
+Training loss: 1.0572
+Valid acc: 0.7180
+Training epoch 4
+Training loss: 0.9858
+Valid acc: 0.7636
+Training epoch 5
+Training loss: 0.9222
+Valid acc: 0.7970
+Training epoch 6
+Training loss: 0.8706
+Valid acc: 0.8018
+Training epoch 7
+Training loss: 0.8284
+Valid acc: 0.8235
+Training epoch 8
+Training loss: 0.7936
+Valid acc: 0.8264
+Training epoch 9
+Training loss: 0.7647
+Valid acc: 0.8357
+Training epoch 10
+Training loss: 0.7401
+Valid acc: 0.8371
+Training epoch 11
+Training loss: 0.7188
+Valid acc: 0.8412
+Training epoch 12
+Training loss: 0.7001
+Valid acc: 0.8495
+Training epoch 13
+Training loss: 0.6837
+Valid acc: 0.8442
+Training epoch 14
+Training loss: 0.6690
+Valid acc: 0.8501
+Training epoch 15
+Training loss: 0.6560
+Valid acc: 0.8495
+Final Test acc: 0.8280
+Number of trainable parameters:  225618

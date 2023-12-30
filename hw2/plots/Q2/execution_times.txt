@@ -1,0 +1,4 @@
+1. Question 1 - LR 0.001 (Run 0) - Elapsed time: 742.55 seconds
+1. Question 1 - LR 0.01 (Run 1) - Elapsed time: 637.87 seconds
+1. Question 1 - LR 0.1 (Run 2) - Elapsed time: 690.34 seconds
+2. Question 2 - LR 0.01 (Run 0) - Elapsed time: 583.16 seconds

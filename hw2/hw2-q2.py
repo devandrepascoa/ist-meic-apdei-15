@@ -21,23 +21,24 @@ class CNN(nn.Module):
     def __init__(self, dropout_prob, no_maxpool=False):
         super(CNN, self).__init__()
         self.no_maxpool = no_maxpool
+        # Convolutional layers
         if not no_maxpool:
-            # Convolutional layers
+            # Implementation for Q2.1
             self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=1, padding=1)
             self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=1, padding=0)
-            
-            # Fully connected layers
-            self.fc1 = nn.Linear(16 * 6 * 6, 320)
-            self.fc2 = nn.Linear(320, 120)
-            self.fc3 = nn.Linear(120, 10)
-            
-            # Dropout layer
-            self.drop = nn.Dropout(dropout_prob)
         else:
             # Implementation for Q2.2
-            raise NotImplementedError
+            self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=2, padding=1)
+            self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=2, padding=0)
         
         # Implementation for Q2.1 and Q2.2
+        # Fully connected layers
+        self.fc1 = nn.Linear(16 * 6 * 6, 320)
+        self.fc2 = nn.Linear(320, 120)
+        self.fc3 = nn.Linear(120, 10)   # TO-DO: Is this the correct number of classes???
+        
+        # Dropout layer
+        self.drop = nn.Dropout(dropout_prob)
         
     def forward(self, x):
         # input should be of shape [b, c, w, h]
@@ -48,7 +49,7 @@ class CNN(nn.Module):
 
         # max-pool layer if using it
         if not self.no_maxpool:
-            x = F.max_pool2d(x, kernel_size=2, stride=2)
+            x = F.max_pool2d(x, kernel_size=2, stride=2)    # TO-DO: use nn.MaxPool2d
         
         # conv and relu layers
         x = F.relu(self.conv2(x))
@@ -113,7 +114,7 @@ def plot(epochs, plottable, ylabel='', name=''):
     plt.xlabel('Epoch')
     plt.ylabel(ylabel)
     plt.plot(epochs, plottable)
-    folder_name = 'hw2/plots'
+    folder_name = 'plots'
     os.makedirs(folder_name, exist_ok=True)
     file_path = os.path.join(folder_name, '%s.pdf' % (name))
     plt.savefig(file_path, bbox_inches='tight')

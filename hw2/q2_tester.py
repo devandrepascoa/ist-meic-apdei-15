@@ -22,36 +22,20 @@ def run_command(command, test_name):
     i += 1
 
 
-def run_mlp_test(test_name, epochs=20, batch_size=16, learning_rate=0.1, l2_decay=0, dropout=0.0, optimizer='sgd', no_maxpool=True):
-    command = f"python.exe ./hw2-q2.py -epochs={epochs} -batch_size={batch_size} -learning_rate={learning_rate} -l2_decay={l2_decay} -dropout={dropout} -optimizer={optimizer} -no_maxpool={no_maxpool}"
+def run_q1_test(test_name, epochs=15, learning_rate=0.1, dropout=0.7, optimizer='sgd', no_maxpool=False):
+    command = f"python3 ./hw2-q2.py -epochs={epochs} -learning_rate={learning_rate} -dropout={dropout} -optimizer={optimizer} {'-no_maxpool' if no_maxpool else ''}"
+    print(command)
     run_command(command, test_name)
 
-
-def run_logistic_regression_test(test_name, epochs=20, batch_size=16, learning_rate=0.01, l2_decay=0,
-                                 hidden_size=100, layers=1, dropout=0.3, activation='relu', optimizer='sgd'):
-    command = f"python.exe ./hw2-q2.py logistic_regression -epochs={epochs} -learning_rate={learning_rate} -hidden_size={hidden_size} -layers={layers} -dropout={dropout} -batch_size={batch_size} -l2_decay={l2_decay} -activation={activation} -optimizer={optimizer}"
+def run_q2_test(test_name, epochs=15, learning_rate=0.1, dropout=0.7, optimizer='sgd', no_maxpool=True):
+    command = f"python3 ./hw2-q2.py -epochs={epochs} -learning_rate={learning_rate} -dropout={dropout} -optimizer={optimizer} {'-no_maxpool' if no_maxpool else ''}"
+    print(command)
     run_command(command, test_name)
 
-
-# Logistic Regression exercise
+# Exercise 1
 learning_rates = [0.001, 0.01, 0.1]
 for lr in learning_rates:
-    run_logistic_regression_test(f"1. Logistic Regression - LR {lr}", learning_rate=lr)
+    run_q1_test(f"1. Question 1 - LR {lr}", learning_rate=lr)
 
-# Exercise 1: Batch sizes
-for batch_size in [16, 1024]:
-    run_mlp_test(f"2.a) MLP - Batch Size {batch_size}", batch_size=batch_size)
-
-# Exercise 2: Learning rates
-for lr in [1, 0.1, 0.01, 0.001]:
-    run_mlp_test(f"2.b) MLP - Learning Rate {lr}", learning_rate=lr)
-
-configs = [
-    {"l2_decay": "0", "dropout": "0.0"},
-    {"l2_decay": "0.0001", "dropout": "0.0"},
-    {"l2_decay": "0", "dropout": "0.2"}
-]
-
-for config in configs:
-    run_mlp_test(f"2.c) MLP - Dropout {config['dropout']} L2 Decay {config['l2_decay']}", epochs=150,
-                 batch_size=256, dropout=config["dropout"], l2_decay=config["l2_decay"])
+# Exercise 2
+run_q2_test(f"2. Question 2 - LR {0.01}", learning_rate=0.01)
