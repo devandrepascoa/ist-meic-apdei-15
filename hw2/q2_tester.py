@@ -17,18 +17,18 @@ def run_command(command, test_name):
     end_time = time.time()
 
     elapsed_time = end_time - start_time
-    with open("plots/Q2/execution_times.txt", "a") as file:
+    with open("outputs/Q2/execution_times.txt", "a") as file:
         file.write(f"{test_name} (Run {i}) - Elapsed time: {elapsed_time:.2f} seconds\n")
     i += 1
 
 
-def run_q1_test(test_name, epochs=15, learning_rate=0.1, dropout=0.7, optimizer='sgd', no_maxpool=False):
-    command = f"python3 ./hw2-q2.py -epochs={epochs} -learning_rate={learning_rate} -dropout={dropout} -optimizer={optimizer} {'-no_maxpool' if no_maxpool else ''}"
+def run_q1_test(test_name, learning_rate=0.1):
+    command = f"python3 ./hw2-q2.py -epochs=15 -learning_rate={learning_rate} -dropout=0.7 -optimizer=sgd"
     print(command)
     run_command(command, test_name)
 
-def run_q2_test(test_name, epochs=15, learning_rate=0.1, dropout=0.7, optimizer='sgd', no_maxpool=True):
-    command = f"python3 ./hw2-q2.py -epochs={epochs} -learning_rate={learning_rate} -dropout={dropout} -optimizer={optimizer} {'-no_maxpool' if no_maxpool else ''}"
+def run_q2_test(test_name, learning_rate=0.1):
+    command = f"python3 ./hw2-q2.py -epochs=15 -learning_rate={learning_rate} -dropout=0.7 -optimizer=sgd -no_maxpool"
     print(command)
     run_command(command, test_name)
 

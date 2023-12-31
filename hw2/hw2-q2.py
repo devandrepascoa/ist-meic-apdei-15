@@ -26,6 +26,8 @@ class CNN(nn.Module):
             # Implementation for Q2.1
             self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=1, padding=1)
             self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=1, padding=0)
+
+            self.max_pool = nn.MaxPool2d(kernel_size=2, stride=2)
         else:
             # Implementation for Q2.2
             self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=2, padding=1)
@@ -35,7 +37,7 @@ class CNN(nn.Module):
         # Fully connected layers
         self.fc1 = nn.Linear(16 * 6 * 6, 320)
         self.fc2 = nn.Linear(320, 120)
-        self.fc3 = nn.Linear(120, 10)   # TO-DO: Is this the correct number of classes???
+        self.fc3 = nn.Linear(120, 4)
         
         # Dropout layer
         self.drop = nn.Dropout(dropout_prob)
@@ -49,14 +51,14 @@ class CNN(nn.Module):
 
         # max-pool layer if using it
         if not self.no_maxpool:
-            x = F.max_pool2d(x, kernel_size=2, stride=2)    # TO-DO: use nn.MaxPool2d
+            x = self.max_pool(x)
         
         # conv and relu layers
         x = F.relu(self.conv2(x))
 
         # max-pool layer if using it
         if not self.no_maxpool:
-            x = F.max_pool2d(x, kernel_size=2, stride=2)
+            x = self.max_pool(x)
         
         # prep for fully connected layer + relu
         x = x.view(-1, 16 * 6 * 6)  # 16 channels, output size 6x6
@@ -121,7 +123,7 @@ def plot(epochs, plottable, ylabel='', name=''):
 
 
 def get_number_trainable_params(model):
-    return sum(p.numel() for p in model.parameters() if p.requires_grad)
+    return sum([p.numel() for p in model.parameters()])
 
 
 def main():
